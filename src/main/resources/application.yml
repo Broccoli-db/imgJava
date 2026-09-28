@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: imgJava
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: postgres
+    password: rootroot
+
+  jpa:
+    hibernate:
+      # 保持 validate：Hibernate 只校验实体与表是否匹配，结构变更一律走迁移脚本
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    # 迁移脚本位于 classpath:db/migration，命名 V<版本>__<描述>.sql
+    enabled: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: rootroot
+    mongodb:
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      username: root
+      password: rootroot
+      database: test
+
+server:
+  # 本机 8080 已被其他项目占用，统一使用 8082
+  port: 8082
+
+# 应用自身信息，绑定到 com.imgjava.config.ApplicationProperties，由 /api/system/info 读取
+imgjava:
+  name: imgJava
+  description: 图床 / 图片存储服务
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    operations-sorter: alpha
+    tags-sorter: alpha
